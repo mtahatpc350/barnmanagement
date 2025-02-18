@@ -6,7 +6,7 @@ namespace WinFormsApp1
     public partial class Form1 : Form
     {
         /* Money */
-        private int money = 100000;
+        private int money = 1000;
         private int eggCount = 0;
         private int milkCount = 0;
 
@@ -16,7 +16,11 @@ namespace WinFormsApp1
         private const int CowMalePrice = 300;
         private const int CowFemalePrice = 300;
 
-        /* Egg Price*/
+        /* Egg Price & Milk Price*/
+        private const int eggPrice = 10;
+        private const int milkPrice = 20;
+        private Random random = new Random();
+
 
         /*  Total Price */
         private int totalprice = 0;
@@ -24,10 +28,13 @@ namespace WinFormsApp1
         private List<Animal> barn = new List<Animal>();
         private System.Windows.Forms.Timer eggTimer;
         private System.Windows.Forms.Timer milkTimer5;
+
         public Form1()
         {
             InitializeComponent();
             UpdateMoneyLabel();
+            eggPriceLabel.Text = $"{eggPrice}$ per egg";
+            milkPriceLabel.Text = $"{milkPrice}$ per milk";
 
             /* Egg Timer */
             eggTimer = new System.Windows.Forms.Timer();
@@ -45,7 +52,7 @@ namespace WinFormsApp1
         {
             moneyLabel.Text = $"{money}$";
         }
- 
+
         private void UpdateBarn(AnimalType animalType)
         {
             var filteredAnimals = barn.Where(x => x.Type == animalType).ToList();
@@ -134,13 +141,13 @@ namespace WinFormsApp1
         private void EggTimer_Tick(object sender, EventArgs e)
         {
             var chickensInBarn = barn.Where(animal => animal.Type == AnimalType.Chicken && animal.IsAlive).Cast<Chicken>().ToList();
-            
+
             foreach (var chicken in chickensInBarn)
             {
                 eggCount++;
                 maskedTextBox1.Text = eggCount.ToString();
             }
-            
+
         }
         private void MilkTimer_Tick(object sender, EventArgs e)
         {
@@ -152,5 +159,22 @@ namespace WinFormsApp1
                 maskedTextBox2.Text = milkCount.ToString();
             }
         }
+
+        private void eggSellButton_Click(object sender, EventArgs e)
+        {
+            money += eggCount * eggPrice;
+            eggCount = 0;
+            maskedTextBox1.Text = eggCount.ToString();
+            UpdateMoneyLabel();
+        }
+
+        private void milkSellButton_Click(object sender, EventArgs e)
+        {
+            money += milkCount * milkPrice;
+            milkCount = 0;
+            maskedTextBox2.Text = milkCount.ToString();
+            UpdateMoneyLabel();
+        }
+
     }
 }

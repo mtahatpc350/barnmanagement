@@ -47,15 +47,17 @@
             chickenMaleBut = new RadioButton();
             chickenPictureBox = new PictureBox();
             groupBox4 = new GroupBox();
+            milkPriceLabel = new Label();
+            eggPriceLabel = new Label();
             label5 = new Label();
             maskedTextBox2 = new MaskedTextBox();
             label6 = new Label();
-            button2 = new Button();
+            milkSellButton = new Button();
             pictureBox4 = new PictureBox();
             label4 = new Label();
             maskedTextBox1 = new MaskedTextBox();
             label3 = new Label();
-            button1 = new Button();
+            eggSellButton = new Button();
             pictureBox3 = new PictureBox();
             moneyLabel = new Label();
             label7 = new Label();
@@ -265,15 +267,17 @@
             // 
             // groupBox4
             // 
+            groupBox4.Controls.Add(milkPriceLabel);
+            groupBox4.Controls.Add(eggPriceLabel);
             groupBox4.Controls.Add(label5);
             groupBox4.Controls.Add(maskedTextBox2);
             groupBox4.Controls.Add(label6);
-            groupBox4.Controls.Add(button2);
+            groupBox4.Controls.Add(milkSellButton);
             groupBox4.Controls.Add(pictureBox4);
             groupBox4.Controls.Add(label4);
             groupBox4.Controls.Add(maskedTextBox1);
             groupBox4.Controls.Add(label3);
-            groupBox4.Controls.Add(button1);
+            groupBox4.Controls.Add(eggSellButton);
             groupBox4.Controls.Add(pictureBox3);
             groupBox4.Location = new Point(30, 367);
             groupBox4.Name = "groupBox4";
@@ -281,6 +285,24 @@
             groupBox4.TabIndex = 4;
             groupBox4.TabStop = false;
             groupBox4.Text = "Market";
+            // 
+            // milkPriceLabel
+            // 
+            milkPriceLabel.AutoSize = true;
+            milkPriceLabel.Location = new Point(333, 154);
+            milkPriceLabel.Name = "milkPriceLabel";
+            milkPriceLabel.Size = new Size(59, 15);
+            milkPriceLabel.TabIndex = 11;
+            milkPriceLabel.Text = "Milk Price";
+            // 
+            // eggPriceLabel
+            // 
+            eggPriceLabel.AutoSize = true;
+            eggPriceLabel.Location = new Point(111, 154);
+            eggPriceLabel.Name = "eggPriceLabel";
+            eggPriceLabel.Size = new Size(56, 15);
+            eggPriceLabel.TabIndex = 10;
+            eggPriceLabel.Text = "Egg Price";
             // 
             // label5
             // 
@@ -310,14 +332,15 @@
             label6.TabIndex = 7;
             label6.Text = "Liter Of Milk :";
             // 
-            // button2
+            // milkSellButton
             // 
-            button2.Location = new Point(333, 174);
-            button2.Name = "button2";
-            button2.Size = new Size(75, 23);
-            button2.TabIndex = 6;
-            button2.Text = "Sell";
-            button2.UseVisualStyleBackColor = true;
+            milkSellButton.Location = new Point(333, 174);
+            milkSellButton.Name = "milkSellButton";
+            milkSellButton.Size = new Size(75, 23);
+            milkSellButton.TabIndex = 6;
+            milkSellButton.Text = "Sell";
+            milkSellButton.UseVisualStyleBackColor = true;
+            milkSellButton.Click += milkSellButton_Click;
             // 
             // pictureBox4
             // 
@@ -357,14 +380,15 @@
             label3.TabIndex = 2;
             label3.Text = "Number Of Eggs :";
             // 
-            // button1
+            // eggSellButton
             // 
-            button1.Location = new Point(105, 174);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 1;
-            button1.Text = "Sell";
-            button1.UseVisualStyleBackColor = true;
+            eggSellButton.Location = new Point(105, 174);
+            eggSellButton.Name = "eggSellButton";
+            eggSellButton.Size = new Size(75, 23);
+            eggSellButton.TabIndex = 1;
+            eggSellButton.Text = "Sell";
+            eggSellButton.UseVisualStyleBackColor = true;
+            eggSellButton.Click += eggSellButton_Click;
             // 
             // pictureBox3
             // 
@@ -586,13 +610,13 @@
         private GroupBox groupBox4;
         private MaskedTextBox maskedTextBox1;
         private Label label3;
-        private Button button1;
+        private Button eggSellButton;
         private PictureBox pictureBox3;
         private Label label4;
         private Label label5;
         private MaskedTextBox maskedTextBox2;
         private Label label6;
-        private Button button2;
+        private Button milkSellButton;
         private PictureBox pictureBox4;
         private Label moneyLabel;
         private Label label7;
@@ -621,5 +645,7 @@
         private DataGridViewCheckBoxColumn isaliveCow;
         private DataGridViewTextBoxColumn productionProcessCow;
         private System.Windows.Forms.Timer milkTimer;
+        private Label eggPriceLabel;
+        private Label milkPriceLabel;
     }
 }
