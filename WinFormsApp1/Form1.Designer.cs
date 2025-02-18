@@ -64,11 +64,20 @@
             label9 = new Label();
             label11 = new Label();
             textBox1 = new TextBox();
-            AnimalTimer_Tick = new System.Windows.Forms.Timer(components);
             dataGridChicken = new DataGridView();
-            typeColumn = new DataGridViewTextBoxColumn();
-            dataGridCow = new DataGridView();
             Type = new DataGridViewTextBoxColumn();
+            Age = new DataGridViewTextBoxColumn();
+            Gender = new DataGridViewTextBoxColumn();
+            IsAlive = new DataGridViewCheckBoxColumn();
+            productionProcess = new DataGridViewTextBoxColumn();
+            dataGridCow = new DataGridView();
+            type1 = new DataGridViewTextBoxColumn();
+            AgeCow = new DataGridViewTextBoxColumn();
+            GenderCow = new DataGridViewTextBoxColumn();
+            isaliveCow = new DataGridViewCheckBoxColumn();
+            productionProcessCow = new DataGridViewTextBoxColumn();
+            eggTimer = new System.Windows.Forms.Timer(components);
+            milkTimer = new System.Windows.Forms.Timer(components);
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)cowPictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)chickenPictureBox).BeginInit();
@@ -98,7 +107,7 @@
             groupBox2.Controls.Add(chickenPictureBox);
             groupBox2.Location = new Point(794, 12);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(242, 450);
+            groupBox2.Size = new Size(242, 507);
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "Animal Market";
@@ -236,10 +245,10 @@
             chickenMaleBut.AutoSize = true;
             chickenMaleBut.Location = new Point(15, 129);
             chickenMaleBut.Name = "chickenMaleBut";
-            chickenMaleBut.Size = new Size(51, 19);
+            chickenMaleBut.Size = new Size(65, 19);
             chickenMaleBut.TabIndex = 1;
             chickenMaleBut.TabStop = true;
-            chickenMaleBut.Text = "Male";
+            chickenMaleBut.Text = "Rooster";
             chickenMaleBut.UseVisualStyleBackColor = true;
             // 
             // chickenPictureBox
@@ -288,7 +297,8 @@
             maskedTextBox2.Mask = "000000000";
             maskedTextBox2.Name = "maskedTextBox2";
             maskedTextBox2.Size = new Size(69, 23);
-            maskedTextBox2.TabIndex = 8;
+            maskedTextBox2.TabIndex = 3;
+            maskedTextBox2.Text = "0";
             maskedTextBox2.ValidatingType = typeof(int);
             // 
             // label6
@@ -335,6 +345,7 @@
             maskedTextBox1.Name = "maskedTextBox1";
             maskedTextBox1.Size = new Size(69, 23);
             maskedTextBox1.TabIndex = 3;
+            maskedTextBox1.Text = "0";
             maskedTextBox1.ValidatingType = typeof(int);
             // 
             // label3
@@ -431,45 +442,101 @@
             textBox1.TabIndex = 15;
             textBox1.Text = "0";
             // 
-            // AnimalTimer_Tick
-            // 
-            AnimalTimer_Tick.Enabled = true;
-            AnimalTimer_Tick.Interval = 10000;
-            // 
             // dataGridChicken
             // 
             dataGridChicken.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridChicken.Columns.AddRange(new DataGridViewColumn[] { typeColumn });
+            dataGridChicken.Columns.AddRange(new DataGridViewColumn[] { Type, Age, Gender, IsAlive, productionProcess });
             dataGridChicken.Location = new Point(30, 34);
             dataGridChicken.Name = "dataGridChicken";
             dataGridChicken.Size = new Size(345, 304);
             dataGridChicken.TabIndex = 16;
-            dataGridChicken.CellPainting += dataGridChicken_CellPainting;
             // 
-            // typeColumn
+            // Type
             // 
-            typeColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            typeColumn.DataPropertyName = "Type";
-            typeColumn.HeaderText = "Type";
-            typeColumn.Name = "typeColumn";
-            typeColumn.Width = 57;
+            Type.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Type.DataPropertyName = "Type";
+            Type.HeaderText = "Type";
+            Type.Name = "Type";
+            Type.Width = 55;
+            // 
+            // Age
+            // 
+            Age.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Age.DataPropertyName = "Age";
+            Age.HeaderText = "Age";
+            Age.Name = "Age";
+            Age.Width = 40;
+            // 
+            // Gender
+            // 
+            Gender.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Gender.DataPropertyName = "Gender";
+            Gender.HeaderText = "Gender";
+            Gender.Name = "Gender";
+            Gender.Width = 60;
+            // 
+            // IsAlive
+            // 
+            IsAlive.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            IsAlive.DataPropertyName = "IsAlive";
+            IsAlive.HeaderText = "IsAlive";
+            IsAlive.Name = "IsAlive";
+            IsAlive.Resizable = DataGridViewTriState.True;
+            IsAlive.SortMode = DataGridViewColumnSortMode.Automatic;
+            IsAlive.Width = 45;
+            // 
+            // productionProcess
+            // 
+            productionProcess.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            productionProcess.DataPropertyName = "ProgressBar";
+            productionProcess.HeaderText = "Production Process";
+            productionProcess.Name = "productionProcess";
             // 
             // dataGridCow
             // 
             dataGridCow.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridCow.Columns.AddRange(new DataGridViewColumn[] { Type });
+            dataGridCow.Columns.AddRange(new DataGridViewColumn[] { type1, AgeCow, GenderCow, isaliveCow, productionProcessCow });
             dataGridCow.Location = new Point(409, 34);
             dataGridCow.Name = "dataGridCow";
             dataGridCow.Size = new Size(345, 304);
             dataGridCow.TabIndex = 17;
             // 
-            // Type
+            // type1
             // 
-            Type.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-            Type.DataPropertyName = "Type";
-            Type.HeaderText = "Type";
-            Type.Name = "Type";
-            Type.Width = 57;
+            type1.DataPropertyName = "Type";
+            type1.HeaderText = "Type";
+            type1.Name = "type1";
+            type1.Width = 50;
+            // 
+            // AgeCow
+            // 
+            AgeCow.DataPropertyName = "Age";
+            AgeCow.HeaderText = "Age";
+            AgeCow.Name = "AgeCow";
+            AgeCow.Width = 40;
+            // 
+            // GenderCow
+            // 
+            GenderCow.DataPropertyName = "Gender";
+            GenderCow.HeaderText = "Gender";
+            GenderCow.Name = "GenderCow";
+            GenderCow.Width = 60;
+            // 
+            // isaliveCow
+            // 
+            isaliveCow.DataPropertyName = "IsAlive";
+            isaliveCow.HeaderText = "IsAlive";
+            isaliveCow.Name = "isaliveCow";
+            isaliveCow.Resizable = DataGridViewTriState.True;
+            isaliveCow.SortMode = DataGridViewColumnSortMode.Automatic;
+            isaliveCow.Width = 45;
+            // 
+            // productionProcessCow
+            // 
+            productionProcessCow.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            productionProcessCow.DataPropertyName = "ProgressBar";
+            productionProcessCow.HeaderText = "Production Process";
+            productionProcessCow.Name = "productionProcessCow";
             // 
             // Form1
             // 
@@ -541,10 +608,18 @@
         private Label cowFemalePrice;
         private Label cowMalePrice;
         private Label chickenFemalePrice;
-        private System.Windows.Forms.Timer AnimalTimer_Tick;
         private DataGridView dataGridChicken;
         private DataGridView dataGridCow;
         private DataGridViewTextBoxColumn Type;
-        private DataGridViewTextBoxColumn typeColumn;
+        private DataGridViewTextBoxColumn Age;
+        private DataGridViewTextBoxColumn Gender;
+        private DataGridViewCheckBoxColumn IsAlive;
+        private DataGridViewTextBoxColumn productionProcess;
+        private DataGridViewTextBoxColumn type1;
+        private DataGridViewTextBoxColumn AgeCow;
+        private DataGridViewTextBoxColumn GenderCow;
+        private DataGridViewCheckBoxColumn isaliveCow;
+        private DataGridViewTextBoxColumn productionProcessCow;
+        private System.Windows.Forms.Timer milkTimer;
     }
 }
