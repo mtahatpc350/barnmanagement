@@ -11,14 +11,18 @@ namespace WinFormsApp1.Models
     public class Chicken : Animal
     {
 
-        public Chicken(AnimalGender gender, ProgressBar? progressBar)
-            : base(AnimalType.Chicken, gender, maxAge: 5, progressBar: progressBar)
+        public Chicken(ProgressBar? progressBar)
+            : base(AnimalType.Chicken, maxAge: 5, progressBar: progressBar)
         {
-            
+            //ProductionTime = 3.5;
         }
 
         public override string Produce()
         {
+            if (Age >= MaxAge)
+            {
+                return string.Empty;
+            }
             return "Egg";
         }
 

@@ -11,23 +11,18 @@ namespace WinFormsApp1
         private int milkCount = 0;
 
         /* Animal Prices */
-        private const int ChickenMalePrice = 250;
-        private const int ChickenFemalePrice = 200;
-        private const int CowMalePrice = 300;
-        private const int CowFemalePrice = 300;
+        private const int ChickenPrice = 250;
+        private const int CowPrice = 300;
 
         /* Egg Price & Milk Price*/
-        private const int eggPrice = 10;
-        private const int milkPrice = 20;
-        private Random random = new Random();
-
+        private const int eggPrice = 5;
+        private const int milkPrice = 10;
 
         /*  Total Price */
         private int totalprice = 0;
 
         private List<Animal> barn = new List<Animal>();
         private System.Windows.Forms.Timer eggTimer;
-        private System.Windows.Forms.Timer milkTimer5;
 
         public Form1()
         {
@@ -38,15 +33,21 @@ namespace WinFormsApp1
 
             /* Egg Timer */
             eggTimer = new System.Windows.Forms.Timer();
-            eggTimer.Interval = 5000;
+            eggTimer.Interval = 4000;
             eggTimer.Tick += EggTimer_Tick;
             eggTimer.Start();
 
             /* Milk Timer */
-            milkTimer5 = new System.Windows.Forms.Timer();
-            milkTimer5.Interval = 7000;
-            milkTimer5.Tick += MilkTimer_Tick;
-            milkTimer5.Start();
+            milkTimer = new System.Windows.Forms.Timer();
+            milkTimer.Interval = 7500;
+            milkTimer.Tick += MilkTimer_Tick;
+            milkTimer.Start();
+
+            /* Age Timer */
+            ageTimer = new System.Windows.Forms.Timer();
+            ageTimer.Interval = 60000;
+            ageTimer.Tick += AgeAnimals_Tick;
+            ageTimer.Start();
         }
         private void UpdateMoneyLabel()
         {
@@ -62,12 +63,12 @@ namespace WinFormsApp1
                 dataGridCow.DataSource = filteredAnimals;
         }
 
-        private void AddToBarn(AnimalType animalType, AnimalGender gender)
+        private void AddToBarn(AnimalType animalType)
         {
             Animal animal = animalType switch
             {
-                AnimalType.Chicken => new Chicken(gender, null),
-                AnimalType.Cow => new Cow(gender, null),
+                AnimalType.Chicken => new Chicken(null),
+                AnimalType.Cow => new Cow(null),
             };
 
             if (animal == null) return;
@@ -81,7 +82,7 @@ namespace WinFormsApp1
             {
                 UpdateBarn(AnimalType.Cow);
             }
-            MessageBox.Show($"{animalType} ({gender}) added to the barn.", "Animal Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"{animalType} added to the barn.", "Animal Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             UpdateBarn(animal.Type);
         }
@@ -101,11 +102,11 @@ namespace WinFormsApp1
             {
                 if (item.ToString().Contains("Chicken"))
                 {
-                    AddToBarn(chickenMaleBut.Checked ? AnimalType.Chicken : AnimalType.Chicken, chickenMaleBut.Checked ? AnimalGender.Male : AnimalGender.Female);
+                    AddToBarn(AnimalType.Chicken);
                 }
                 else if (item.ToString().Contains("Cow"))
                 {
-                    AddToBarn(cowMaleBut.Checked ? AnimalType.Cow : AnimalType.Cow, cowMaleBut.Checked ? AnimalGender.Male : AnimalGender.Female);
+                    AddToBarn(AnimalType.Cow);
                 }
             }
 
@@ -114,7 +115,29 @@ namespace WinFormsApp1
             textBox1.Text = "0";
 
         }
+        private void emptyCartButton_Click(object sender, EventArgs e)
+        {
+            if (cartListBox.SelectedItem != null)
+            {
+                string selectedItem = cartListBox.SelectedItem.ToString();
+                cartListBox.Items.Remove(selectedItem);
 
+                if (selectedItem.Contains("Chicken"))
+                {
+                    totalprice -= ChickenPrice;
+                }
+                else if (selectedItem.Contains("Cow"))
+                {
+                    totalprice -= CowPrice;
+                }
+
+                textBox1.Text = totalprice.ToString();
+            }
+            else
+            {
+                MessageBox.Show("Please select an item to remove!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
         private void AddToCart(string item, int price)
         {
             totalprice += price;
@@ -124,18 +147,12 @@ namespace WinFormsApp1
 
         private void chickenPictureBox_Click(object sender, EventArgs e)
         {
-            if (chickenMaleBut.Checked)
-                AddToCart("Chicken : Male = 250 $", ChickenMalePrice);
-            else if (chickenFemaleBut.Checked)
-                AddToCart("Chicken : Female = 200 $", ChickenFemalePrice);
+            AddToCart("Chicken = 250 $", ChickenPrice);
         }
 
         private void cowPictureBox_Click(object sender, EventArgs e)
         {
-            if (cowMaleBut.Checked)
-                AddToCart("Cow : Male = 300 $", CowMalePrice);
-            else if (cowFemaleBut.Checked)
-                AddToCart("Cow : Female = 300 $", CowFemalePrice);
+            AddToCart("Cow = 300 $", CowPrice);
         }
 
         private void EggTimer_Tick(object sender, EventArgs e)
@@ -147,8 +164,8 @@ namespace WinFormsApp1
                 eggCount++;
                 maskedTextBox1.Text = eggCount.ToString();
             }
-
         }
+
         private void MilkTimer_Tick(object sender, EventArgs e)
         {
             var cowsInBarn = barn.Where(animal => animal.Type == AnimalType.Cow && animal.IsAlive).Cast<Cow>().ToList();
@@ -158,6 +175,34 @@ namespace WinFormsApp1
                 milkCount++;
                 maskedTextBox2.Text = milkCount.ToString();
             }
+        }
+        private void AgeAnimals_Tick(object sender, EventArgs e)
+        {
+            foreach (var animal in barn.ToList())
+            {
+                if (animal.Type == AnimalType.Chicken)
+                {
+                    animal.Age++;
+
+                    if (animal.Age >= 5)
+                    {
+                        barn.Remove(animal);
+                        UpdateBarn(AnimalType.Chicken);
+                    }
+                }
+                else if (animal.Type == AnimalType.Cow)
+                {
+                    animal.Age++;
+
+                    if (animal.Age >= 7)
+                    {
+                        barn.Remove(animal);
+                        UpdateBarn(AnimalType.Cow);
+                    }
+                }
+            }
+            dataGridChicken.Refresh();
+            dataGridCow.Refresh();
         }
 
         private void eggSellButton_Click(object sender, EventArgs e)
@@ -176,5 +221,56 @@ namespace WinFormsApp1
             UpdateMoneyLabel();
         }
 
+        private void dataGridChicken_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+        //    //if (e.ColumnIndex == dataGridChicken.Columns["ProgressBar"].Index && e.RowIndex >= 0)
+        //    {
+        //        e.PaintBackground(e.ClipBounds, true);
+
+        //        var chicken = barn.Where(a => a.Type == AnimalType.Chicken).ElementAtOrDefault(e.RowIndex) as Chicken;
+        //        if (chicken != null)
+        //        {
+        //            int progress = (int)((double)chicken.ProductionTime / 3500 * 100); // 3.5 saniyede 100%
+
+        //            var rect = e.CellBounds;
+        //            var progressBarRect = new Rectangle(rect.X + 2, rect.Y + 2, rect.Width - 4, rect.Height - 4);
+
+        //            using (var progressBarBrush = new SolidBrush(Color.LightGreen))
+        //            {
+        //                e.Graphics.FillRectangle(progressBarBrush, progressBarRect.X, progressBarRect.Y,
+        //                                         progressBarRect.Width * progress / 100, progressBarRect.Height);
+        //            }
+        //        }
+
+        //        e.PaintContent(e.ClipBounds);
+        //        e.Handled = true;
+        //    }
+        }
+
+        private void dataGridCow_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+        //    if (e.ColumnIndex == dataGridCow.Columns["ProgressBar"].Index && e.RowIndex >= 0)
+        //    {
+        //        e.PaintBackground(e.ClipBounds, true);
+
+        //        var cow = barn.Where(a => a.Type == AnimalType.Cow).ElementAtOrDefault(e.RowIndex) as Cow;
+        //        if (cow != null)
+        //        {
+        //            int progress = (int)((double)cow.ProductionTime / 6000 * 100); // 6 saniyede 100%
+
+        //            var rect = e.CellBounds;
+        //            var progressBarRect = new Rectangle(rect.X + 2, rect.Y + 2, rect.Width - 4, rect.Height - 4);
+
+        //            using (var progressBarBrush = new SolidBrush(Color.LightBlue))
+        //            {
+        //                e.Graphics.FillRectangle(progressBarBrush, progressBarRect.X, progressBarRect.Y,
+        //                                         progressBarRect.Width * progress / 100, progressBarRect.Height);
+        //            }
+        //        }
+
+        //        e.PaintContent(e.ClipBounds);
+        //        e.Handled = true;
+        //    }
+        }
     }
 }

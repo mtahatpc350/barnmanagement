@@ -31,20 +31,12 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             groupBox2 = new GroupBox();
-            cowFemalePrice = new Label();
             cowMalePrice = new Label();
-            chickenFemalePrice = new Label();
             chickenMalePrice = new Label();
             payButton = new Button();
-            maskedTextBox4 = new MaskedTextBox();
-            maskedTextBox3 = new MaskedTextBox();
             label2 = new Label();
-            cowFemaleBut = new RadioButton();
-            cowMaleBut = new RadioButton();
             cowPictureBox = new PictureBox();
             label1 = new Label();
-            chickenFemaleBut = new RadioButton();
-            chickenMaleBut = new RadioButton();
             chickenPictureBox = new PictureBox();
             groupBox4 = new GroupBox();
             milkPriceLabel = new Label();
@@ -69,17 +61,17 @@
             dataGridChicken = new DataGridView();
             Type = new DataGridViewTextBoxColumn();
             Age = new DataGridViewTextBoxColumn();
-            Gender = new DataGridViewTextBoxColumn();
             IsAlive = new DataGridViewCheckBoxColumn();
             productionProcess = new DataGridViewTextBoxColumn();
             dataGridCow = new DataGridView();
             type1 = new DataGridViewTextBoxColumn();
             AgeCow = new DataGridViewTextBoxColumn();
-            GenderCow = new DataGridViewTextBoxColumn();
             isaliveCow = new DataGridViewCheckBoxColumn();
             productionProcessCow = new DataGridViewTextBoxColumn();
             eggTimer = new System.Windows.Forms.Timer(components);
             milkTimer = new System.Windows.Forms.Timer(components);
+            ageTimer = new System.Windows.Forms.Timer(components);
+            emptyCartButton = new Button();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)cowPictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)chickenPictureBox).BeginInit();
@@ -92,20 +84,12 @@
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(cowFemalePrice);
             groupBox2.Controls.Add(cowMalePrice);
-            groupBox2.Controls.Add(chickenFemalePrice);
             groupBox2.Controls.Add(chickenMalePrice);
             groupBox2.Controls.Add(payButton);
-            groupBox2.Controls.Add(maskedTextBox4);
-            groupBox2.Controls.Add(maskedTextBox3);
             groupBox2.Controls.Add(label2);
-            groupBox2.Controls.Add(cowFemaleBut);
-            groupBox2.Controls.Add(cowMaleBut);
             groupBox2.Controls.Add(cowPictureBox);
             groupBox2.Controls.Add(label1);
-            groupBox2.Controls.Add(chickenFemaleBut);
-            groupBox2.Controls.Add(chickenMaleBut);
             groupBox2.Controls.Add(chickenPictureBox);
             groupBox2.Location = new Point(794, 12);
             groupBox2.Name = "groupBox2";
@@ -114,41 +98,25 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "Animal Market";
             // 
-            // cowFemalePrice
-            // 
-            cowFemalePrice.AutoSize = true;
-            cowFemalePrice.Location = new Point(181, 306);
-            cowFemalePrice.Name = "cowFemalePrice";
-            cowFemalePrice.Size = new Size(25, 15);
-            cowFemalePrice.TabIndex = 14;
-            cowFemalePrice.Text = "300";
-            // 
             // cowMalePrice
             // 
             cowMalePrice.AutoSize = true;
-            cowMalePrice.Location = new Point(34, 306);
+            cowMalePrice.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            cowMalePrice.Location = new Point(103, 290);
             cowMalePrice.Name = "cowMalePrice";
-            cowMalePrice.Size = new Size(25, 15);
+            cowMalePrice.Size = new Size(36, 17);
             cowMalePrice.TabIndex = 13;
-            cowMalePrice.Text = "300";
-            // 
-            // chickenFemalePrice
-            // 
-            chickenFemalePrice.AutoSize = true;
-            chickenFemalePrice.Location = new Point(181, 151);
-            chickenFemalePrice.Name = "chickenFemalePrice";
-            chickenFemalePrice.Size = new Size(25, 15);
-            chickenFemalePrice.TabIndex = 12;
-            chickenFemalePrice.Text = "200";
+            cowMalePrice.Text = "300$";
             // 
             // chickenMalePrice
             // 
             chickenMalePrice.AutoSize = true;
-            chickenMalePrice.Location = new Point(34, 151);
+            chickenMalePrice.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            chickenMalePrice.Location = new Point(103, 135);
             chickenMalePrice.Name = "chickenMalePrice";
-            chickenMalePrice.Size = new Size(25, 15);
+            chickenMalePrice.Size = new Size(36, 17);
             chickenMalePrice.TabIndex = 11;
-            chickenMalePrice.Text = "250";
+            chickenMalePrice.Text = "250$";
             // 
             // payButton
             // 
@@ -161,54 +129,15 @@
             payButton.UseVisualStyleBackColor = true;
             payButton.Click += payButton_Click;
             // 
-            // maskedTextBox4
-            // 
-            maskedTextBox4.Location = new Point(175, 214);
-            maskedTextBox4.Mask = "00000";
-            maskedTextBox4.Name = "maskedTextBox4";
-            maskedTextBox4.Size = new Size(31, 23);
-            maskedTextBox4.TabIndex = 9;
-            maskedTextBox4.ValidatingType = typeof(int);
-            // 
-            // maskedTextBox3
-            // 
-            maskedTextBox3.Location = new Point(175, 62);
-            maskedTextBox3.Mask = "00000";
-            maskedTextBox3.Name = "maskedTextBox3";
-            maskedTextBox3.Size = new Size(31, 23);
-            maskedTextBox3.TabIndex = 8;
-            maskedTextBox3.ValidatingType = typeof(int);
-            // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(105, 266);
+            label2.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label2.Location = new Point(95, 266);
             label2.Name = "label2";
-            label2.Size = new Size(31, 15);
+            label2.Size = new Size(39, 20);
             label2.TabIndex = 7;
             label2.Text = "Cow";
-            // 
-            // cowFemaleBut
-            // 
-            cowFemaleBut.AutoSize = true;
-            cowFemaleBut.Location = new Point(152, 284);
-            cowFemaleBut.Name = "cowFemaleBut";
-            cowFemaleBut.Size = new Size(63, 19);
-            cowFemaleBut.TabIndex = 6;
-            cowFemaleBut.TabStop = true;
-            cowFemaleBut.Text = "Female";
-            cowFemaleBut.UseVisualStyleBackColor = true;
-            // 
-            // cowMaleBut
-            // 
-            cowMaleBut.AutoSize = true;
-            cowMaleBut.Location = new Point(15, 284);
-            cowMaleBut.Name = "cowMaleBut";
-            cowMaleBut.Size = new Size(51, 19);
-            cowMaleBut.TabIndex = 5;
-            cowMaleBut.TabStop = true;
-            cowMaleBut.Text = "Male";
-            cowMaleBut.UseVisualStyleBackColor = true;
             // 
             // cowPictureBox
             // 
@@ -225,33 +154,12 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(96, 111);
+            label1.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label1.Location = new Point(89, 111);
             label1.Name = "label1";
-            label1.Size = new Size(50, 15);
+            label1.Size = new Size(63, 20);
             label1.TabIndex = 3;
             label1.Text = "Chicken";
-            // 
-            // chickenFemaleBut
-            // 
-            chickenFemaleBut.AutoSize = true;
-            chickenFemaleBut.Location = new Point(152, 129);
-            chickenFemaleBut.Name = "chickenFemaleBut";
-            chickenFemaleBut.Size = new Size(63, 19);
-            chickenFemaleBut.TabIndex = 2;
-            chickenFemaleBut.TabStop = true;
-            chickenFemaleBut.Text = "Female";
-            chickenFemaleBut.UseVisualStyleBackColor = true;
-            // 
-            // chickenMaleBut
-            // 
-            chickenMaleBut.AutoSize = true;
-            chickenMaleBut.Location = new Point(15, 129);
-            chickenMaleBut.Name = "chickenMaleBut";
-            chickenMaleBut.Size = new Size(65, 19);
-            chickenMaleBut.TabIndex = 1;
-            chickenMaleBut.TabStop = true;
-            chickenMaleBut.Text = "Rooster";
-            chickenMaleBut.UseVisualStyleBackColor = true;
             // 
             // chickenPictureBox
             // 
@@ -318,6 +226,7 @@
             maskedTextBox2.Location = new Point(339, 121);
             maskedTextBox2.Mask = "000000000";
             maskedTextBox2.Name = "maskedTextBox2";
+            maskedTextBox2.ReadOnly = true;
             maskedTextBox2.Size = new Size(69, 23);
             maskedTextBox2.TabIndex = 3;
             maskedTextBox2.Text = "0";
@@ -363,9 +272,11 @@
             // 
             // maskedTextBox1
             // 
+            maskedTextBox1.AccessibleRole = AccessibleRole.None;
             maskedTextBox1.Location = new Point(111, 121);
             maskedTextBox1.Mask = "000000000";
             maskedTextBox1.Name = "maskedTextBox1";
+            maskedTextBox1.ReadOnly = true;
             maskedTextBox1.Size = new Size(69, 23);
             maskedTextBox1.TabIndex = 3;
             maskedTextBox1.Text = "0";
@@ -452,7 +363,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(553, 549);
+            label11.Location = new Point(553, 555);
             label11.Name = "label11";
             label11.Size = new Size(68, 15);
             label11.TabIndex = 14;
@@ -460,54 +371,54 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(627, 542);
+            textBox1.Location = new Point(627, 549);
             textBox1.Name = "textBox1";
+            textBox1.ReadOnly = true;
             textBox1.Size = new Size(100, 23);
             textBox1.TabIndex = 15;
             textBox1.Text = "0";
             // 
             // dataGridChicken
             // 
+            dataGridChicken.AllowUserToAddRows = false;
+            dataGridChicken.AllowUserToDeleteRows = false;
             dataGridChicken.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridChicken.Columns.AddRange(new DataGridViewColumn[] { Type, Age, Gender, IsAlive, productionProcess });
+            dataGridChicken.Columns.AddRange(new DataGridViewColumn[] { Type, Age, IsAlive, productionProcess });
             dataGridChicken.Location = new Point(30, 34);
             dataGridChicken.Name = "dataGridChicken";
+            dataGridChicken.ReadOnly = true;
             dataGridChicken.Size = new Size(345, 304);
             dataGridChicken.TabIndex = 16;
+            dataGridChicken.CellPainting += dataGridChicken_CellPainting;
             // 
             // Type
             // 
-            Type.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Type.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             Type.DataPropertyName = "Type";
             Type.HeaderText = "Type";
             Type.Name = "Type";
-            Type.Width = 55;
+            Type.ReadOnly = true;
+            Type.Width = 57;
             // 
             // Age
             // 
-            Age.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Age.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             Age.DataPropertyName = "Age";
             Age.HeaderText = "Age";
             Age.Name = "Age";
-            Age.Width = 40;
-            // 
-            // Gender
-            // 
-            Gender.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            Gender.DataPropertyName = "Gender";
-            Gender.HeaderText = "Gender";
-            Gender.Name = "Gender";
-            Gender.Width = 60;
+            Age.ReadOnly = true;
+            Age.Width = 53;
             // 
             // IsAlive
             // 
-            IsAlive.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            IsAlive.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             IsAlive.DataPropertyName = "IsAlive";
             IsAlive.HeaderText = "IsAlive";
             IsAlive.Name = "IsAlive";
+            IsAlive.ReadOnly = true;
             IsAlive.Resizable = DataGridViewTriState.True;
             IsAlive.SortMode = DataGridViewColumnSortMode.Automatic;
-            IsAlive.Width = 45;
+            IsAlive.Width = 66;
             // 
             // productionProcess
             // 
@@ -515,45 +426,49 @@
             productionProcess.DataPropertyName = "ProgressBar";
             productionProcess.HeaderText = "Production Process";
             productionProcess.Name = "productionProcess";
+            productionProcess.ReadOnly = true;
             // 
             // dataGridCow
             // 
+            dataGridCow.AllowUserToAddRows = false;
+            dataGridCow.AllowUserToDeleteRows = false;
             dataGridCow.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridCow.Columns.AddRange(new DataGridViewColumn[] { type1, AgeCow, GenderCow, isaliveCow, productionProcessCow });
+            dataGridCow.Columns.AddRange(new DataGridViewColumn[] { type1, AgeCow, isaliveCow, productionProcessCow });
             dataGridCow.Location = new Point(409, 34);
             dataGridCow.Name = "dataGridCow";
+            dataGridCow.ReadOnly = true;
             dataGridCow.Size = new Size(345, 304);
             dataGridCow.TabIndex = 17;
+            dataGridCow.CellPainting += dataGridCow_CellPainting;
             // 
             // type1
             // 
+            type1.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             type1.DataPropertyName = "Type";
             type1.HeaderText = "Type";
             type1.Name = "type1";
-            type1.Width = 50;
+            type1.ReadOnly = true;
+            type1.Width = 57;
             // 
             // AgeCow
             // 
+            AgeCow.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             AgeCow.DataPropertyName = "Age";
             AgeCow.HeaderText = "Age";
             AgeCow.Name = "AgeCow";
-            AgeCow.Width = 40;
-            // 
-            // GenderCow
-            // 
-            GenderCow.DataPropertyName = "Gender";
-            GenderCow.HeaderText = "Gender";
-            GenderCow.Name = "GenderCow";
-            GenderCow.Width = 60;
+            AgeCow.ReadOnly = true;
+            AgeCow.Width = 53;
             // 
             // isaliveCow
             // 
+            isaliveCow.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             isaliveCow.DataPropertyName = "IsAlive";
             isaliveCow.HeaderText = "IsAlive";
             isaliveCow.Name = "isaliveCow";
+            isaliveCow.ReadOnly = true;
             isaliveCow.Resizable = DataGridViewTriState.True;
             isaliveCow.SortMode = DataGridViewColumnSortMode.Automatic;
-            isaliveCow.Width = 45;
+            isaliveCow.Width = 66;
             // 
             // productionProcessCow
             // 
@@ -561,6 +476,29 @@
             productionProcessCow.DataPropertyName = "ProgressBar";
             productionProcessCow.HeaderText = "Production Process";
             productionProcessCow.Name = "productionProcessCow";
+            productionProcessCow.ReadOnly = true;
+            // 
+            // eggTimer
+            // 
+            eggTimer.Tick += EggTimer_Tick;
+            // 
+            // milkTimer
+            // 
+            milkTimer.Tick += MilkTimer_Tick;
+            // 
+            // ageTimer
+            // 
+            ageTimer.Tick += AgeAnimals_Tick;
+            // 
+            // emptyCartButton
+            // 
+            emptyCartButton.Location = new Point(576, 521);
+            emptyCartButton.Name = "emptyCartButton";
+            emptyCartButton.Size = new Size(136, 22);
+            emptyCartButton.TabIndex = 18;
+            emptyCartButton.Text = "Empty The Cart";
+            emptyCartButton.UseVisualStyleBackColor = true;
+            emptyCartButton.Click += emptyCartButton_Click;
             // 
             // Form1
             // 
@@ -568,6 +506,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1048, 591);
+            Controls.Add(emptyCartButton);
             Controls.Add(dataGridCow);
             Controls.Add(textBox1);
             Controls.Add(label11);
@@ -579,6 +518,8 @@
             Controls.Add(groupBox4);
             Controls.Add(groupBox2);
             Controls.Add(dataGridChicken);
+            DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
@@ -599,13 +540,9 @@
 
         #endregion
         private GroupBox groupBox2;
-        private RadioButton chickenFemaleBut;
-        private RadioButton chickenMaleBut;
         private PictureBox chickenPictureBox;
         private Label label1;
         private Label label2;
-        private RadioButton cowFemaleBut;
-        private RadioButton cowMaleBut;
         private PictureBox cowPictureBox;
         private GroupBox groupBox4;
         private MaskedTextBox maskedTextBox1;
@@ -621,31 +558,27 @@
         private Label moneyLabel;
         private Label label7;
         private Label label8;
-        private MaskedTextBox maskedTextBox4;
-        private MaskedTextBox maskedTextBox3;
         private Button payButton;
         private ListBox cartListBox;
         private Label label9;
         private Label label11;
         private TextBox textBox1;
         private Label chickenMalePrice;
-        private Label cowFemalePrice;
         private Label cowMalePrice;
-        private Label chickenFemalePrice;
         private DataGridView dataGridChicken;
         private DataGridView dataGridCow;
-        private DataGridViewTextBoxColumn Type;
-        private DataGridViewTextBoxColumn Age;
-        private DataGridViewTextBoxColumn Gender;
-        private DataGridViewCheckBoxColumn IsAlive;
-        private DataGridViewTextBoxColumn productionProcess;
-        private DataGridViewTextBoxColumn type1;
-        private DataGridViewTextBoxColumn AgeCow;
-        private DataGridViewTextBoxColumn GenderCow;
-        private DataGridViewCheckBoxColumn isaliveCow;
-        private DataGridViewTextBoxColumn productionProcessCow;
         private System.Windows.Forms.Timer milkTimer;
         private Label eggPriceLabel;
         private Label milkPriceLabel;
+        private System.Windows.Forms.Timer ageTimer;
+        private Button emptyCartButton;
+        private DataGridViewTextBoxColumn type1;
+        private DataGridViewTextBoxColumn AgeCow;
+        private DataGridViewCheckBoxColumn isaliveCow;
+        private DataGridViewTextBoxColumn productionProcessCow;
+        private DataGridViewTextBoxColumn Type;
+        private DataGridViewTextBoxColumn Age;
+        private DataGridViewCheckBoxColumn IsAlive;
+        private DataGridViewTextBoxColumn productionProcess;
     }
 }
