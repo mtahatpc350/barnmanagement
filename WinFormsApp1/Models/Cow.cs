@@ -12,10 +12,11 @@ namespace WinFormsApp1.Models
     {
 
         public Cow( ProgressBar? progressBar)
-            : base(AnimalType.Cow, maxAge: 10, progressBar: progressBar)
+            : base(AnimalType.Cow, maxAge: 7, progressBar: progressBar)
         {
-            //ProductionTime = 6;
+            ProductionTime = 0;
         }
+
         public override string Produce()
         {
             if(Age >=MaxAge)

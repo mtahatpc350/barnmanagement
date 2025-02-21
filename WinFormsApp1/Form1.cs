@@ -1,6 +1,6 @@
+using System.Data;
 using WinFormsApp1.Models;
-using System.Timers;
-using System.Windows.Forms;
+
 namespace WinFormsApp1
 {
     public partial class Form1 : Form
@@ -22,7 +22,6 @@ namespace WinFormsApp1
         private int totalprice = 0;
 
         private List<Animal> barn = new List<Animal>();
-        private System.Windows.Forms.Timer eggTimer;
 
         public Form1()
         {
@@ -31,23 +30,11 @@ namespace WinFormsApp1
             eggPriceLabel.Text = $"{eggPrice}$ per egg";
             milkPriceLabel.Text = $"{milkPrice}$ per milk";
 
-            /* Egg Timer */
-            eggTimer = new System.Windows.Forms.Timer();
-            eggTimer.Interval = 4000;
-            eggTimer.Tick += EggTimer_Tick;
+            ProductionTimer.Start();
             eggTimer.Start();
-
-            /* Milk Timer */
-            milkTimer = new System.Windows.Forms.Timer();
-            milkTimer.Interval = 7500;
-            milkTimer.Tick += MilkTimer_Tick;
             milkTimer.Start();
-
-            /* Age Timer */
-            ageTimer = new System.Windows.Forms.Timer();
-            ageTimer.Interval = 60000;
-            ageTimer.Tick += AgeAnimals_Tick;
             ageTimer.Start();
+
         }
         private void UpdateMoneyLabel()
         {
@@ -155,27 +142,34 @@ namespace WinFormsApp1
             AddToCart("Cow = 300 $", CowPrice);
         }
 
-        private void EggTimer_Tick(object sender, EventArgs e)
+        private void ProductionTimer_Tick(object sender, EventArgs e)
         {
-            var chickensInBarn = barn.Where(animal => animal.Type == AnimalType.Chicken && animal.IsAlive).Cast<Chicken>().ToList();
 
-            foreach (var chicken in chickensInBarn)
+            var chickensIsBarn = barn.Where(animal => animal.Type == AnimalType.Chicken && animal.IsAlive).Cast<Chicken>().ToList();
+            foreach (var chicken in chickensIsBarn)
             {
-                eggCount++;
-                maskedTextBox1.Text = eggCount.ToString();
+
+                chicken.ProductionTime += 1000;
+
+                dataGridChicken.Refresh();
             }
+
+            var cowInBarn = barn.Where(animal => animal.Type == AnimalType.Cow && animal.IsAlive).Cast<Cow>().ToList();
+            foreach (var cow in cowInBarn)
+            {
+                if (cow.ProductionTime >= milkTimer.Interval)
+                {
+                    cow.ProductionTime = 0;
+                }
+                else
+                {
+                    cow.ProductionTime += 1000;
+                }
+                dataGridCow.Refresh();
+            }
+
         }
 
-        private void MilkTimer_Tick(object sender, EventArgs e)
-        {
-            var cowsInBarn = barn.Where(animal => animal.Type == AnimalType.Cow && animal.IsAlive).Cast<Cow>().ToList();
-
-            foreach (var cow in cowsInBarn)
-            {
-                milkCount++;
-                maskedTextBox2.Text = milkCount.ToString();
-            }
-        }
         private void AgeAnimals_Tick(object sender, EventArgs e)
         {
             foreach (var animal in barn.ToList())
@@ -223,54 +217,67 @@ namespace WinFormsApp1
 
         private void dataGridChicken_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
-        //    //if (e.ColumnIndex == dataGridChicken.Columns["ProgressBar"].Index && e.RowIndex >= 0)
-        //    {
-        //        e.PaintBackground(e.ClipBounds, true);
+            if (e.ColumnIndex == dataGridChicken.Columns["ProgressBar"].Index && e.RowIndex >= 0)
+            {
+                e.PaintBackground(e.ClipBounds, true);
 
-        //        var chicken = barn.Where(a => a.Type == AnimalType.Chicken).ElementAtOrDefault(e.RowIndex) as Chicken;
-        //        if (chicken != null)
-        //        {
-        //            int progress = (int)((double)chicken.ProductionTime / 3500 * 100); // 3.5 saniyede 100%
+                var chicken = barn.Where(a => a.Type == AnimalType.Chicken).ElementAtOrDefault(e.RowIndex) as Chicken;
+                if (chicken != null)
+                {
+                    int progress = (int)((double)chicken.ProductionTime / eggTimer.Interval * 100); // 4 saniyede 100%
 
-        //            var rect = e.CellBounds;
-        //            var progressBarRect = new Rectangle(rect.X + 2, rect.Y + 2, rect.Width - 4, rect.Height - 4);
+                    var rect = e.CellBounds;
+                    var progressBarRect = new Rectangle(rect.X + 2, rect.Y + 2, rect.Width - 4, rect.Height - 4);
 
-        //            using (var progressBarBrush = new SolidBrush(Color.LightGreen))
-        //            {
-        //                e.Graphics.FillRectangle(progressBarBrush, progressBarRect.X, progressBarRect.Y,
-        //                                         progressBarRect.Width * progress / 100, progressBarRect.Height);
-        //            }
-        //        }
+                    using (var progressBarBrush = new SolidBrush(Color.LightGreen))
+                    {
+                        e.Graphics.FillRectangle(progressBarBrush, progressBarRect.X, progressBarRect.Y,
+                                                 progressBarRect.Width * progress / 100, progressBarRect.Height);
+                    }
+                    if (progress >= 100)
+                    {
+                        chicken.ProductionTime = 0;
+                        eggCount++;
+                        maskedTextBox1.Text = eggCount.ToString();
+                    }
+                }
 
-        //        e.PaintContent(e.ClipBounds);
-        //        e.Handled = true;
-        //    }
+                e.PaintContent(e.ClipBounds);
+                e.Handled = true;
+            }
         }
 
         private void dataGridCow_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
-        //    if (e.ColumnIndex == dataGridCow.Columns["ProgressBar"].Index && e.RowIndex >= 0)
-        //    {
-        //        e.PaintBackground(e.ClipBounds, true);
+            if (e.ColumnIndex == dataGridCow.Columns["ProgressBar"].Index && e.RowIndex >= 0)
+            {
+                e.PaintBackground(e.ClipBounds, true);
 
-        //        var cow = barn.Where(a => a.Type == AnimalType.Cow).ElementAtOrDefault(e.RowIndex) as Cow;
-        //        if (cow != null)
-        //        {
-        //            int progress = (int)((double)cow.ProductionTime / 6000 * 100); // 6 saniyede 100%
+                var cow = barn.Where(a => a.Type == AnimalType.Cow).ElementAtOrDefault(e.RowIndex) as Cow;
+                if (cow != null)
+                {
+                    int progress = (int)((double)cow.ProductionTime / milkTimer.Interval * 100); // 7 saniyede 100%
 
-        //            var rect = e.CellBounds;
-        //            var progressBarRect = new Rectangle(rect.X + 2, rect.Y + 2, rect.Width - 4, rect.Height - 4);
+                    var rect = e.CellBounds;
+                    var progressBarRect = new Rectangle(rect.X + 2, rect.Y + 2, rect.Width - 4, rect.Height - 4);
 
-        //            using (var progressBarBrush = new SolidBrush(Color.LightBlue))
-        //            {
-        //                e.Graphics.FillRectangle(progressBarBrush, progressBarRect.X, progressBarRect.Y,
-        //                                         progressBarRect.Width * progress / 100, progressBarRect.Height);
-        //            }
-        //        }
+                    using (var progressBarBrush = new SolidBrush(Color.LightGreen))
+                    {
+                        e.Graphics.FillRectangle(progressBarBrush, progressBarRect.X, progressBarRect.Y,
+                                                 progressBarRect.Width * progress / 100, progressBarRect.Height);
+                    }
+                    if (progress >= 100)
+                    {
+                        cow.ProductionTime = 0;
+                        milkCount++;
+                        maskedTextBox2.Text = milkCount.ToString();
+                    }
+                }
 
-        //        e.PaintContent(e.ClipBounds);
-        //        e.Handled = true;
-        //    }
+                e.PaintContent(e.ClipBounds);
+                e.Handled = true;
+            }
         }
+
     }
 }

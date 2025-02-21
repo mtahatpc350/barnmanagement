@@ -11,11 +11,17 @@ namespace WinFormsApp1.Models
     {
         public AnimalType Type { get; set; }
         public int Age { get; set; }
+
         [Browsable(false)]
         public int MaxAge { get; set; }
+
         public bool IsAlive => Age < MaxAge;
+
+        [DisplayName("Production Process")]
         public ProgressBar ProgressBar { get; set; }
-        //public double ProductionTime { get; set; }
+
+        [Browsable(false)]
+        public double ProductionTime { get; set; }
 
         public Animal(AnimalType type, int maxAge = 5, ProgressBar progressBar = null)
         {
@@ -23,7 +29,7 @@ namespace WinFormsApp1.Models
             Age = 0;
             MaxAge = maxAge;
             ProgressBar = progressBar;
-            //ProductionTime = 0;
+            ProductionTime = 0;
         }
         public virtual string Produce()
         {

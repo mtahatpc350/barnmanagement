@@ -14,7 +14,7 @@ namespace WinFormsApp1.Models
         public Chicken(ProgressBar? progressBar)
             : base(AnimalType.Chicken, maxAge: 5, progressBar: progressBar)
         {
-            //ProductionTime = 3.5;
+            ProductionTime = 0;
         }
 
         public override string Produce()
