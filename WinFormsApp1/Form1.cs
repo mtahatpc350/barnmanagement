@@ -5,20 +5,16 @@ namespace WinFormsApp1
 {
     public partial class Form1 : Form
     {
-        /* Money */
-        private int money = 100000;
+        private int money = 1000;
         private int eggCount = 0;
         private int milkCount = 0;
 
-        /* Animal Prices */
         private const int ChickenPrice = 250;
         private const int CowPrice = 300;
 
-        /* Egg Price & Milk Price*/
         private const int eggPrice = 5;
         private const int milkPrice = 10;
 
-        /*  Total Price */
         private int totalprice = 0;
 
         private List<Animal> barn = new List<Animal>();
