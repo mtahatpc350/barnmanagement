@@ -85,7 +85,7 @@
             groupBox2.Controls.Add(cowPictureBox);
             groupBox2.Controls.Add(label1);
             groupBox2.Controls.Add(chickenPictureBox);
-            groupBox2.Location = new Point(794, 12);
+            groupBox2.Location = new Point(784, 12);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(242, 507);
             groupBox2.TabIndex = 1;
@@ -309,6 +309,7 @@
             // 
             moneyLabel.AutoSize = true;
             moneyLabel.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            moneyLabel.ForeColor = Color.OliveDrab;
             moneyLabel.Location = new Point(932, 545);
             moneyLabel.Name = "moneyLabel";
             moneyLabel.Size = new Size(112, 37);
@@ -458,6 +459,7 @@
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Animal Farm";

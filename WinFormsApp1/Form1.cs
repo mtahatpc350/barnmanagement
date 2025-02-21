@@ -6,7 +6,7 @@ namespace WinFormsApp1
     public partial class Form1 : Form
     {
         /* Money */
-        private int money = 1000;
+        private int money = 100000;
         private int eggCount = 0;
         private int milkCount = 0;
 
@@ -69,8 +69,6 @@ namespace WinFormsApp1
             {
                 UpdateBarn(AnimalType.Cow);
             }
-            MessageBox.Show($"{animalType} added to the barn.", "Animal Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
             UpdateBarn(animal.Type);
         }
 
@@ -85,16 +83,47 @@ namespace WinFormsApp1
             money -= totalprice;
             UpdateMoneyLabel();
 
+            int chickenCount = 0;
+            int cowCount = 0;
+
             foreach (var item in cartListBox.Items)
             {
                 if (item.ToString().Contains("Chicken"))
                 {
-                    AddToBarn(AnimalType.Chicken);
+                    chickenCount++;
                 }
                 else if (item.ToString().Contains("Cow"))
                 {
-                    AddToBarn(AnimalType.Cow);
+                    cowCount++;
                 }
+            }
+
+            for (int i = 0; i < chickenCount; i++)
+            {
+                AddToBarn(AnimalType.Chicken);
+            }
+
+            for (int i = 0; i < cowCount; i++)
+            {
+                AddToBarn(AnimalType.Cow);
+            }
+
+            if (chickenCount == 1)
+            {
+                MessageBox.Show("A chicken was added to the barn.", "Animal Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (chickenCount > 1)
+            {
+                MessageBox.Show($"chickens were added to the barn.", "Animals Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            if (cowCount == 1)
+            {
+                MessageBox.Show("A cow was added to the barn.", "Animal Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (cowCount > 1)
+            {
+                MessageBox.Show($"cows were added to the barn.", "Animals Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             cartListBox.Items.Clear();
